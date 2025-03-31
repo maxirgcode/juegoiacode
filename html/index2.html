@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Hexágonos</title>
+  
+  <style>
+    /* Estilo general */
+	body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background: url('images2/fondo.png') no-repeat center center fixed;
+	background-size: cover;
+	position: relative;
+	}
+
+    /* Contenedor principal */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    /* Fila de hexágonos */
+    .row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+	  flex-wrap: wrap;
+    }
+
+    /* Estilo para los hexágonos */
+    .hexagon {
+      position: relative;
+      width: 80px; /* Ancho del hexágono */
+      height: 80px; /* Altura del hexágono */
+      background-color: #ffffff;
+      border: 2px solid #333;
+      margin: 0 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Efecto al pasar el mouse sobre un hexágono */
+    .hexagon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Imagen dentro del hexágono */
+    .hexagon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Hexágono seleccionado */
+    .hexagon.selected {
+      border-color: #ff0000;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    /* Base enemiga */
+    .hexagon.enemy-base img {
+      filter: grayscale(100%) brightness(0.5);
+    }
+
+    /* Selector de recursos */
+    .resource-selector {
+	  color: #ffffff; /* Blanco */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .resource-selector img {
+      width: 50px;
+      height: 50px;
+      margin: 5px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .resource-selector img:hover {
+      transform: scale(1.2);
+    }
+
+    /* Recursos totales */
+    .resources {
+	  color: #ffffff; /* Blanco */
+      text-align: center;
+      margin: 20px 0;
+	  display: flex;
+      flex-wrap: nowrap;
+    }
+
+    .resources p {
+      margin: 5px 0;
+	  width: 70px;
+      
+    }
+  </style></head><body>
+  <!-- Contenedores principales -->
+  <div class="container">
+    <!-- Primera fila con 120 hexágonos -->
+    <div id="row1" class="row"></div>
+
+    <!-- Segunda fila con 18 hexágonos -->
+    <div id="row2" class="row"></div>
+  </div>
+
+	    <!-- Primera fila con 120 hexágonos -->
+    <div id="row3" class="row"></div>
+
+    <!-- Segunda fila con 18 hexágonos -->
+    <div id="row4" class="row"></div>
+  </div>
+
+	    <!-- Primera fila con 120 hexágonos -->
+    <div id="row5" class="row"></div>
+
+    <!-- Segunda fila con 18 hexágonos -->
+    <div id="row6" class="row"></div>
+  </div>
+
+	    <!-- Primera fila con 120 hexágonos -->
+    <div id="row7" class="row"></div>
+
+    <!-- Segunda fila con 18 hexágonos -->
+    <div id="row8" class="row"></div>
+  </div>
+
+  <!-- Selector de recursos -->
+    <div class="resource-selector">
+    <p>Selecciona un recurso:</p>
+    <img id="img1" src="./images1/agua.png" alt="Agua" data-resource="Agua">
+    <img id="img2" src="./images1/Madera.png" alt="Madera" data-resource="Madera">
+    <img id="img3" src="./images1/Barril.png" alt="Barril" data-resource="Barril">
+    <img id="img4" src="./images1/Piedras.png" alt="Piedra" data-resource="Piedra">
+    <img id="img5" src="./images1/Riob.png" alt="Rio" data-resource="Rio">
+    <img id="img6" src="./images1/Roble.png" alt="Roble" data-resource="Roble">
+    <img id="img7" src="./images1/feria.png" alt="Oro" data-resource="Oro">
+    <img id="img8" src="./images1/pescador.png" alt="Pesca" data-resource="Pesca">
+    <img id="img9" src="./images1/rioA.png" alt="Rio" data-resource="Rio">
+    <img id="img10" src="./images1/Animales Silvestre.png" alt="Animales Silvestre" data-resource="Animales Silvestre">
+    <img id="img11" src="./images1/Pino.png" alt="Pinos" data-resource="Pinos">
+    <img id="img12" src="./images1/trigo.png" alt="Trigo" data-resource="Trigo">
+    <img id="img13" src="./images1/Arqueros.png" alt="Arqueros" data-resource="Arqueros">
+    <img id="img14" src="./images1/Caballeria.png" alt="Caballeria" data-resource="Caballeria">
+    <img id="img15" src="./images1/Lancero.png" alt="Lancero" data-resource="Lancero">
+    <img id="img16" src="./images1/Espadachin.png" alt="Espadachin" data-resource="Espadachin">
+  </div>
+
+  <!-- Recursos -->
+  <div class="resources">
+    <p>Recursos Totales:</p>
+<p><br>
+ </p> 
+ 
+    <p>Oro: <span id="Oro">3000</span></p>
+<p><span id="Oro"><br>
+</span></p>  
+
+    <p>Madera: <span id="Madera">3000</span></p>
+<p><span id="Madera"><br>
+</span></p>
+
+    <p>Piedra: <span id="Piedra">3000</span></p>
+<p><span id="Piedra"><br>
+</span></p>
+
+    <p>Barril: <span id="Barril">3000</span></p>
+<p><span id="Barril"><br>
+</span></p>
+
+    <p>Trigo: <span id="Trigo">3000</span></p>
+<p><span id="Trigo"><br>
+</span></p>
+
+    <p>Roble: <span id="Roble">3000</span></p>
+<p><span id="Roble"><br>
+</span></p>
+
+    <p>Pesca: <span id="Pesca">3000</span></p>
+<p><span id="Pesca"><br>
+</span></p>
+
+    <p>Río: <span id="Rio">3000</span></p>
+<p><span id="Rio"><br>
+</span></p>
+
+    <p>Agua: <span id="Agua">3000</span></p>
+<p><span id="Agua"><br>
+</span></p>
+
+    <p>Animales Silvestre: <span id="Animales Silvestre">3000</span></p>
+<p><span id="Animales Silvestre"><br>
+</span></p>
+
+    <p>Pinos: <span id="Pinos">3000</span></p>
+<p><span id="Pinos"><br>
+</span></p>
+
+    <p>Arqueros: <span id="Arqueros">3000</span></p>
+<p><span id="Arqueros"><br>
+</span></p>
+
+    <p>Caballeria: <span id="Caballeria">3000</span></p>
+<p><span id="Caballeria"><br>
+</span></p>
+
+    <p>Lancero: <span id="Lancero">3000</span></p>
+<p><span id="Lancero"><br>
+</span></p>
+
+    <p>Espadachin: <span id="Espadachin">3000</span></p>
+  </div>
+
+  <!-- Script para generar hexágonos -->
+  <script>
+    // Variable para almacenar el hexágono seleccionado actualmente
+    let selectedHexagon = null;
+
+    // Variables para conflictos enemigos y generar recursos aleatorios
+    const enemyBases = [];
+    const resourceBases = [];
+    let conflictInterval;
+    let resourcesInterval;
+	
+    // Función para generar hexágonos
+    function generateHexagons(startId, endId, containerId) {
+      const container = document.getElementById(containerId);
+      for (let i = startId; i <= endId; i++) {
+        const hexagon = document.createElement('div');
+        hexagon.className = 'hexagon';
+        hexagon.id = `hexagon-${i}`;
+        hexagon.textContent = `Hex ${i}`;
+
+        // Agregar imagen al hexágono
+        const img = document.createElement('img');
+        img.src = `https://via.placeholder.com/80?text=Hex+${i}`; // Placeholder dinámico
+        img.alt = `Imagen Hexágono ${i}`;
+        hexagon.appendChild(img);
+
+        // Evento de clic para seleccionar el hexágono
+        hexagon.onclick = () => handleHexagonClick(hexagon);
+        container.appendChild(hexagon);
+      }
+    }
+	
+	    // Función para manejar clic en un hexágono
+    function handleHexagonClick(hexagon) {
+      if (hexagon.classList.contains('enemy-base')) {
+        // Si es una base enemiga, intentar capturarla
+        captureEnemyBase(hexagon);
+      } else if (hexagon.classList.contains('resource-base')) {
+        // Si es una base de recursos, recolectar recursos
+        collectResources(hexagon);
+      } else {
+        // Seleccionar/deseleccionar un hexágono normal
+        selectHexagon(hexagon.id);
+      }
+    }
+
+	    // Función para seleccionar o deseleccionar un hexágono
+    function selectHexagon(id) {
+      const hexagon = document.getElementById(id);
+      if (selectedHexagon === id) {
+        // Deseleccionar el hexágono actual
+        hexagon.classList.remove('selected');
+        selectedHexagon = null;
+        alert(`Has deseleccionado el hexágono ${id}`);
+      } else {
+        // Deseleccionar el hexágono anterior, si existe
+        if (selectedHexagon) {
+          document.getElementById(selectedHexagon).classList.remove('selected');
+        }
+        // Seleccionar el nuevo hexágono
+        hexagon.classList.add('selected');
+        selectedHexagon = id;
+        alert(`Has seleccionado el hexágono ${id}`);
+      }
+    }
+	    // Función para generar conflictos aleatorios
+    function generateConflicts() {
+      const allHexagons = document.querySelectorAll('.hexagon');
+      const randomIndex = Math.floor(Math.random() * allHexagons.length);
+      const randomHexagon = allHexagons[randomIndex];
+      if (!randomHexagon.classList.contains('enemy-base') && !randomHexagon.classList.contains('resource-base')) {
+        // Limpiar estado anterior
+        randomHexagon.classList.remove('resource-base');
+        randomHexagon.removeAttribute('data-resource');
+
+        // Asignar nueva base enemiga
+        randomHexagon.classList.add('enemy-base');
+        randomHexagon.querySelector('img').src = './images/combats2.png';
+        randomHexagon.setAttribute('data-resource', 'enemy');
+        enemyBases.push(randomHexagon.id);
+        alert(`¡Una base enemiga ha aparecido en el hexágono ${randomHexagon.id}!`);
+        subtractResources(); // Restar recursos cuando aparezca una base enemiga
+      }
+    }
+	
+    // Función para generar recursos aleatorios
+    function generateResources() {
+      const allHexagons = document.querySelectorAll('.hexagon');
+      const randomIndex = Math.floor(Math.random() * allHexagons.length);
+      const randomHexagon = allHexagons[randomIndex];
+      if (!randomHexagon.classList.contains('resource-base') && !randomHexagon.classList.contains('enemy-base')) {
+        // Limpiar estado anterior
+        randomHexagon.classList.remove('enemy-base');
+        randomHexagon.removeAttribute('data-resource');
+
+        // Definir los tipos de recursos y sus imágenes correspondientes
+        const resourceTypes = [
+          { type: 'Madera', img: './images/Madera2.png' },
+          { type: 'Oro', img: './images/feria2.png' },
+          { type: 'Piedra', img: './images/Piedras2.png' },
+          { type: 'Barril', img: './images/Barril2.png' }
+        ];
+
+        // Seleccionar un recurso aleatorio
+        const randomResource = resourceTypes[Math.floor(Math.random() * resourceTypes.length)];
+
+        // Asignar nueva base de recursos
+        randomHexagon.classList.add('resource-base');
+        randomHexagon.querySelector('img').src = randomResource.img;
+        randomHexagon.setAttribute('data-resource', randomResource.type);
+        resourceBases.push(randomHexagon.id);
+        alert(`¡Una base de ${randomResource.type} ha aparecido en el hexágono ${randomHexagon.id}!`);
+      }
+    }
+	    // Función para capturar una base enemiga
+    function captureEnemyBase(hexagon) {
+      const troops =
+        parseInt(document.getElementById('Arqueros')?.textContent || 0) +
+        parseInt(document.getElementById('Caballeria')?.textContent || 0) +
+        parseInt(document.getElementById('Lancero')?.textContent || 0) +
+        parseInt(document.getElementById('Espadachin')?.textContent || 0);
+      if (troops > 15) {
+        alert(`¡Has capturado la base enemiga en el hexágono ${hexagon.id}!`);
+        hexagon.classList.remove('enemy-base');
+        hexagon.querySelector('img').src = './images/empty.png'; // Imagen vacía
+        hexagon.removeAttribute('data-resource');
+        const index = enemyBases.indexOf(hexagon.id);
+        if (index !== -1) enemyBases.splice(index, 1);
+      } else {
+        alert("No tienes suficientes tropas para capturar esta base enemiga.");
+      }
+    }
+	
+    // Función para recolectar recursos
+    function collectResources(hexagon) {
+      const resourceType = hexagon.getAttribute('data-resource');
+      const amount = Math.floor(Math.random() * 10) + 1; // Genera entre 1 y 10 recursos
+      addResource(resourceType, amount);
+      alert(`¡Has recolectado ${amount} unidades de ${resourceType}!`);
+
+      // Limpiar el estado del hexágono después de recolectar recursos
+      hexagon.classList.remove('resource-base');
+      hexagon.querySelector('img').src = './images/empty.png';
+      hexagon.removeAttribute('data-resource');
+      const index = resourceBases.indexOf(hexagon.id);
+      if (index !== -1) resourceBases.splice(index, 1);
+    }
+
+    // Función para agregar recursos
+    function addResource(resourceType, amount) {
+      const resourceElement = document.getElementById(resourceType);
+      const currentAmount = parseInt(resourceElement.textContent) || 0;
+      resourceElement.textContent = currentAmount + amount;
+    }
+	
+	// Función para restar recursos
+    function subtractResources() {
+      const resources = ['Oro', 'Madera', 'Piedra', 'Barril', 'Trigo', 'Roble', 'Pesca', 'Rio', 'Agua', 'Animales Silvestre', 'Pinos', 'Arqueros' , 'Lancero' , 'Espadachin' , 'Caballeria' ];
+      resources.forEach((resource) => {
+        const resourceElement = document.getElementById(resource);
+        const currentAmount = parseInt(resourceElement.textContent) || 0;
+        resourceElement.textContent = Math.max(0, currentAmount - 10);
+      });
+    }
+
+// Asignar eventos a las imágenes del selector de recursos
+    document.querySelectorAll('.resource-selector img').forEach((img) => {
+      img.addEventListener('click', () => {
+        const resourceType = img.getAttribute('data-resource'); // Obtener el tipo de recurso
+        replaceHexagonImage(img.src, resourceType);
+      });
+    });
+
+    // Función para reemplazar la imagen del hexágono seleccionado
+    function replaceHexagonImage(imageSrc, resourceType) {
+      if (!selectedHexagon) {
+        alert("Por favor, selecciona un hexágono primero.");
+        return;
+      }
+      const hexagon = document.getElementById(selectedHexagon);
+      const img = hexagon.querySelector('img');
+      img.src = imageSrc; // Agregar recurso correspondiente
+      addResource(resourceType, Math.floor(Math.random() * 33) + 1); // Aleatorio entre 1 y 3
+      alert(`Has recolectado recursos de ${resourceType}!`);
+    }
+
+
+
+    // Iniciar temporizador para conflictos
+    function startConflictTimer() {
+      conflictInterval = setInterval(() => {
+        generateConflicts();
+      }, 19000); // Cada 10 segundos
+    }
+
+    // Iniciar temporizador para recursos
+    function startResourcesTimer() {
+      resourcesInterval = setInterval(() => {
+        generateResources();
+      }, 15000); // Cada 15 segundos
+    }
+
+
+
+    // Generar 5 hexágonos en la primera fila
+    generateHexagons(1, 5, 'row1');
+
+    // Generar 5 hexágonos en la segunda fila
+    generateHexagons(6, 9, 'row2');
+
+    // Generar 5 hexágonos en la tercera fila
+    generateHexagons(10, 15, 'row3');
+
+    // Generar 5 hexágonos en la cuarta fila
+    generateHexagons(20, 23, 'row4');
+	
+	// Generar 5 hexágonos en la quinta fila
+    generateHexagons(30, 32, 'row5');
+	
+	// Generar 5 hexágonos en la sexta fila
+    generateHexagons(40, 45, 'row6');
+	
+	// Generar 5 hexágonos en la 7 fila
+    generateHexagons(50, 53, 'row7');
+	
+	// Generar 5 hexágonos en la 8 fila
+    generateHexagons(60, 61, 'row8');
+
+    // Iniciar temporizador de conflictos
+    startConflictTimer();
+	startResourcesTimer();
+  </script>
+</body></html>
